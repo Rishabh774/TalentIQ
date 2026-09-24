@@ -4,7 +4,11 @@ export const COMPANIES = ["Google", "Amazon", "Meta", "Microsoft", "Uber", "Netf
 
 export const FREQUENCIES = ["High", "Medium", "Low"];
 
-// per-problem company-bank metadata. Keep ids in sync with PROBLEMS.
+
+
+// test
+
+
 const QUESTION_META = {
   "two-sum": {
     topic: "Array",
