@@ -27,6 +27,9 @@ if (!apiKey || !apiSecret) {
     getOrCreate: async (options) => {
       console.log("[MOCK] Stream video call would be created:", { type, id, options });
     },
+    update: async (options) => {
+      console.log("[MOCK] Stream video call would be updated:", { type, id, options });
+    },
     delete: async (options) => {
       console.log("[MOCK] Stream video call would be deleted:", { type, id, options });
     },

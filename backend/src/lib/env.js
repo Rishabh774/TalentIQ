@@ -7,6 +7,9 @@ export const ENV = {
   DB_URL: process.env.DB_URL,
   NODE_ENV: process.env.NODE_ENV || "development",
   CLIENT_URL: process.env.CLIENT_URL,
+  // Piston code-execution API. The public emkc.org instance became whitelist-only
+  // on 2026-02-15, so self-hosting (or another mirror) is required for /api/execute.
+  PISTON_URL: (process.env.PISTON_URL || "https://emkc.org/api/v2/piston").replace(/\/+$/, ""),
   STREAM_API_KEY: process.env.STREAM_API_KEY,
   STREAM_API_SECRET: process.env.STREAM_API_SECRET,
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,

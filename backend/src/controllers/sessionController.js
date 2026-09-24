@@ -80,9 +80,14 @@ export async function updateSessionProblem(req, res) {
     session.difficulty = difficulty;
     await session.save();
 
-    // keep the stream call/channel metadata in sync
-    const call = streamClient.video.call("default", session.callId);
-    await call.update({ custom: { problem, difficulty, sessionId: session._id.toString() } });
+    // keep the stream call/channel metadata in sync — the problem is already
+    // persisted, so a stream hiccup must not fail the request
+    try {
+      const call = streamClient.video.call("default", session.callId);
+      await call.update({ custom: { problem, difficulty, sessionId: session._id.toString() } });
+    } catch (streamError) {
+      console.error("Stream call metadata sync failed:", streamError.message);
+    }
 
     if (session.participant) {
       await createNotification({

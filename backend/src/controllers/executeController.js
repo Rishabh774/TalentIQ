@@ -1,4 +1,6 @@
-const PISTON_API = "https://emkc.org/api/v2/piston";
+import { ENV } from "../lib/env.js";
+
+const PISTON_API = ENV.PISTON_URL;
 
 const LANGUAGE_MAP = {
   javascript: { language: "javascript", version: "18.15.0" },
@@ -37,7 +39,18 @@ export async function executeCode(req, res) {
 
     if (!response.ok) {
       const errorText = await response.text().catch(() => "");
-      return res.status(502).json({ success: false, error: `Execution service error: ${response.status} ${errorText}` });
+
+      // emkc.org's public Piston went whitelist-only on 2026-02-15 and answers 401/403
+      // for every execute call, so point PISTON_URL at your own instance instead.
+      const needsOwnInstance =
+        (response.status === 401 || response.status === 403) && PISTON_API.includes("emkc.org");
+
+      return res.status(502).json({
+        success: false,
+        error: needsOwnInstance
+          ? "Code execution is not configured: the public Piston API no longer accepts requests. Set PISTON_URL to a self-hosted Piston instance."
+          : `Execution service error: ${response.status} ${errorText}`,
+      });
     }
 
     const data = await response.json();

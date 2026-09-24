@@ -90,6 +90,7 @@ TalentIQ/
    | `DB_URL` | MongoDB connection string |
    | `CLIENT_URL` | Frontend origin (for CORS) |
    | `CLERK_PUBLISHABLE_KEY` / `CLERK_SECRET_KEY` | Clerk auth keys |
+   | `PISTON_URL` | Piston API base URL used to run code. The public `emkc.org` instance is whitelist-only, so [self-host Piston](https://github.com/engineer-man/piston#self-hosting) and point this at it |
    | `STREAM_API_KEY` / `STREAM_API_SECRET` | Stream video/chat server keys |
    | `INNGEST_EVENT_KEY` / `INNGEST_SIGNING_KEY` | Inngest keys for Clerk webhook sync |
    | `SUPER_ADMIN_EMAIL` | The email that is automatically granted the admin role |
